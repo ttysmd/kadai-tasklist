@@ -10,7 +10,7 @@
                         <c:out value="${task.id}" />
                     </a>
                 </li>
-                :<c:out value="${task.task_content}"/>
+                :<c:out value="${task.task_title}" ></c:out> &gt; <c:out value="${task.task_content}"/>
             </c:forEach>
         </ul>
         <p><a href="${pageContext.request.contextPath}/new">新規タスクの投稿</a></p>

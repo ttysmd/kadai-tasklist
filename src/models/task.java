@@ -34,14 +34,6 @@ public class Task {
     @Column(name = "task_title")
     private String task_title;
 
-    public String getTask_title() {
-        return task_title;
-    }
-
-    public void setTask_title(String task_title) {
-        this.task_title = task_title;
-    }
-
     @Column(name = "content")
     private String task_content;
 
@@ -76,4 +68,13 @@ public class Task {
     public void setTask_content(String task_content) {
         this.task_content = task_content;
     }
+
+    public String getTask_title() {
+        return task_title;
+    }
+
+    public void setTask_title(String task_title) {
+        this.task_title = task_title;
+    }
+
 }
