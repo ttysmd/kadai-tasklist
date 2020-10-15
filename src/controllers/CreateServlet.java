@@ -2,8 +2,10 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Task;
 import utils.DBUtil;
+import validators.TaskValidator;
 
 /**
  * Servlet implementation class CreateServlet
@@ -47,14 +50,25 @@ public class CreateServlet extends HttpServlet {
             t.setCreat_time(currentTime);
             t.setUpdate_time(currentTime);
 
-            em.getTransaction().begin();
-            em.persist(t);
-            em.getTransaction().commit();
-            request.getSession().setAttribute("flush", "登録が完了しました。");
-            em.close();
+            List<String> errors = TaskValidator.validate(t);
+            if(errors.size() > 0) {
+                em.close();
 
-            response.sendRedirect(request.getContextPath() + "/index");
+                request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("task", t);
+                request.setAttribute("errors", errors);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/new.jsp");
+                rd.forward(request, response);
+            } else {
+                em.getTransaction().begin();
+                em.persist(t);
+                em.getTransaction().commit();
+                request.getSession().setAttribute("flush", "登録が完了しました。");
+                em.close();
+
+                response.sendRedirect(request.getContextPath() + "/index");
+            }
         }
     }
-
 }
