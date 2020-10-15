@@ -14,11 +14,12 @@
                     <a href="${pageContext.request.contextPath}/show?id=${task.id}">
                         <c:out value="${task.id}" />
                     </a>
+                    :<c:out value="${task.task_title}" ></c:out> &gt; <c:out value="${task.task_content}"/>
                 </li>
-                :<c:out value="${task.task_title}" ></c:out> &gt; <c:out value="${task.task_content}"/>
+
             </c:forEach>
         </ul>
-        
+
         <div id="pagination">
             （全 ${tasks_count} 件）<br />
             <c:forEach var="i" begin="1" end="${((tasks_count - 1) / 15) + 1}" step="1">

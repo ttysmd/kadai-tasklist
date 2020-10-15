@@ -29,16 +29,16 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Timestamp creat_time;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private Timestamp update_time;
 
-    @Column(name = "task_title")
+    @Column(name = "task_title", length = 255, nullable = false)
     private String task_title;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 255, nullable = false)
     private String task_content;
 
     public int getId() {
